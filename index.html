@@ -77,12 +77,25 @@
             margin-right: 10px; /* Added margin for spacing */
         }
         
+        .support-btn {
+            background-color: red;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            margin-right: 10px; /* Added margin for spacing */
+            display: none; /* Initially hidden */
+        }
+        
         .login-btn:hover {
             background-color: #ff3333;
         }
         
         .error-msg {
             color: red;
+            text-align: center; /* Center align error message */
         }
         
         /* Styling for date and time */
@@ -103,11 +116,42 @@
             <input type="password" id="password" placeholder="Password">
             <span class="toggle-password" onclick="togglePasswordVisibility()"><i class="fas fa-eye"></i></span>
         </div>
-        <div class="error-msg" id="error"></div><br>
+        <div align="left">
+            <input type="checkbox" id="saveCredentials">
+            <label for="saveCredentials">Save Username & Password</label>
+            
+        </div>
+        <br> <div class="error-msg" id="error"></div>
+        
+        <br>
+        
+        <div class="toggle-msg" id="toggleMsg" style="display:none;"></div>
+        
+         <br>
+         
         <button type="submit" class="login-btn">Login</button>
+ 
+        <button class="support-btn" onclick="redirectToTelegram()">Developer</button>
+    
     </form>
+     
+<br><br><br><br><br>
+
+    <footer>
+        <p>Made With ❤ By <a href="@Shineii86" target="_blank">@Shine</a></p>
+    </footer>
 
     <script>
+        // Object to store usernames and passwords
+        var credentials = {
+            "@Shineii86": "Shikimori",
+            "@shineii86": "shikimori",
+            "Shineii86": "Shikimori",
+            "shineii86": "shikimori",
+            // Add more users here
+        };
+
+        // Function to toggle password visibility
         function togglePasswordVisibility() {
             var passwordInput = document.getElementById("password");
             var togglePasswordBtn = document.querySelector(".toggle-password");
@@ -123,17 +167,16 @@
             }
         }
 
+        // Function to redirect to Telegram
+        function redirectToTelegram() {
+            // Replace 'your_telegram_username' with your actual Telegram username
+            var telegramLink = "https://t.me/shineii86";
+            window.open(telegramLink, '_blank');
+        }
+
+        // Function to handle form submission
         document.getElementById("loginForm").addEventListener("submit", function (event) {
             event.preventDefault(); // Prevent the form from submitting
-
-            // Object to store usernames and passwords
-            var credentials = {
-                "@Shineii86": "waifu",
-                "@shineii86": "waifu",
-                "Shineii86": "waifu",
-                "shineii86": "waifu",
-                // Add more users here
-            };
 
             // Get the username and password values
             var username = document.getElementById("username").value;
@@ -142,14 +185,20 @@
             // Check if the username exists and the password matches
             if (credentials.hasOwnProperty(username) && credentials[username] === password) {
                 // Redirect to the dashboard.html page after successful login
-                window.location.href = "./waifu";
+                document.getElementById("toggleMsg").innerHTML = "Successfully Logged In";
+                document.getElementById("toggleMsg").style.display = "block";
+                setTimeout(function() {
+                    window.location.href = "./waifu";
+                }, 2000); // Redirect after 2 seconds
             } else {
                 // Display error message
                 document.getElementById("error").innerHTML = 'Invalid username or password, <br><b><a href="https://t.me/shineii86">Please contact the developer.</a></b>';
+                // Display the support button and adjust alignment
+                document.querySelector(".support-btn").style.display = "inline-block";
+                document.querySelector(".login-btn").style.marginRight = "calc(50% - 80px)"; // Adjust margin for login button
             }
         });
 
-        
     </script>
 </body>
 </html>
