@@ -195,13 +195,13 @@
 
         // Redirect to login page after 1-2 minutes
         setTimeout(() => {
-            window.location.href = "./";
+            window.location.href = "./login";
         }, 120000); // 120000 milliseconds = 2 minutes
     }
 
     function preventRightClick(event) {
         event.preventDefault();
-        window.location.href = "./"; // Redirect to login page
+        window.location.href = "./login"; // Redirect to login page
     }
 
     function preventImageDrag(event) {
